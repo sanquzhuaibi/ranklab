@@ -34,15 +34,17 @@ def recall_at(ranked_labels: List[int], k: int) -> float:
     return sum(ranked_labels[:k]) / total
 
 
-def group_auc(y: np.ndarray, pred: np.ndarray, qids: Sequence[str], engages: Sequence[str] | None = None):
-    """Per-query ROC-AUC, then a weighted mean across queries."""
-    from .labels import parse_engage
+def group_auc(
+    y: np.ndarray,
+    pred: np.ndarray,
+    qids: Sequence[str],
+    query_weights: Dict[str, float] | None = None,
+):
+    """Per-query ROC-AUC, then a mean across queries.
 
+    If query_weights is set, it is the same query importance used in training.
+    """
     buckets = _grouped(qids, y.tolist(), pred.tolist())
-    eng_by_q = defaultdict(list)
-    if engages is not None:
-        for qid, raw in zip(qids, engages):
-            eng_by_q[qid].append(parse_engage(raw))
     vals, weights = [], []
     skipped = 0
     for qid, pairs in buckets.items():
@@ -52,8 +54,8 @@ def group_auc(y: np.ndarray, pred: np.ndarray, qids: Sequence[str], engages: Seq
             skipped += 1
             continue
         vals.append(float(roc_auc_score(labels, scores)))
-        if qid in eng_by_q:
-            weights.append(max(eng_by_q[qid]))
+        if query_weights is not None:
+            weights.append(float(query_weights.get(qid, 1.0)))
         else:
             weights.append(1.0)
     gauc = float(np.average(vals, weights=weights)) if vals else float("nan")
@@ -75,11 +77,16 @@ def ctr_deciles(y: np.ndarray, pred: np.ndarray) -> List[dict]:
     return bins
 
 
-def evaluate(y: Sequence[int], pred: Sequence[float], qids: Sequence[str], engages: Sequence[str] | None = None) -> dict:
+def evaluate(
+    y: Sequence[int],
+    pred: Sequence[float],
+    qids: Sequence[str],
+    query_weights: Dict[str, float] | None = None,
+) -> dict:
     y_arr = np.asarray(y, dtype=int)
     p_arr = np.asarray(pred, dtype=float)
     auc = float(roc_auc_score(y_arr, p_arr))
-    gauc, skipped, eligible = group_auc(y_arr, p_arr, qids, engages)
+    gauc, skipped, eligible = group_auc(y_arr, p_arr, qids, query_weights)
     buckets = _grouped(qids, y, pred)
     ndcg = {f"@{k}": [] for k in config.NDCG_KS}
     recall = {f"@{k}": [] for k in config.NDCG_KS}

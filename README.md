@@ -4,7 +4,7 @@
 
 这不是生产代码。数据是一份脱敏后的小样本 dump：train 用 bizdate 前约 20 天，test 用 `20260903` 单日；每个 query 下若干候选，`engage_score` 来自互动日志。
 
-字段合同在 `data/feature_schema.json`。线上排序看板的 GAUC 口径在 `docs/serving_gauc.md`。
+字段合同在 `data/feature_schema.json`。
 
 ## 环境
 
@@ -33,3 +33,10 @@ python -m src.pipeline
 3. 新的指标文件（例如 `outputs/run_metrics.json`）
 
 面试官会看你怎么动手，不看你能不能背公式。
+
+## 相关文档
+
+- `outputs/NOTES.md` — v2 变更说明
+- `data/feature_schema.json` — 字段合同
+- `docs/ranker_dashboard.md` — 线上看板
+

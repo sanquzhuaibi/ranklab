@@ -6,10 +6,10 @@
    日志里的 `engage_score` 不是 0/1。v2 按 `>=1` 转成点击，query 权重用组内 `max(engage_score)`，深互动 session 不再被淹没。
 
 2. **特征**  
-   仓库追加了衍生字段（tag / catalog / 比率 / 缺失标记）。训练按 `feature_schema.json` 的 16 槽位读。跑数前会做 data_check（行数、schema、一组特征均值）。
+   仓库追加了衍生字段（tag / catalog / 比率 / 缺失标记）。训练按 `feature_schema.json` 的 16 槽位读。跑数前会做 data_check（行数、主键、分区、schema、request 侧特征）。
 
 3. **评估**  
-   主指标换成 **Recall@10**（线上列表截断到 10）。v1 看 Recall@3 大约 0.71，这版 Recall@10 到了 1.0。GAUC 按 query 报，深互动 request 权重大一些。看板口径在 `docs/serving_gauc.md`，本轮先看离线。
+   主指标换成 **Recall@10**（线上列表截断到 10）。v1 看 Recall@3 大约 0.71，这版 Recall@10 到了 1.0。GAUC 按 query 报，和训练用同一套 query 权重。线上看板还是原来的口径，本轮先看离线。
 
 4. **样本窗口**  
    train 用 bizdate 前 20 天，test 用 0903。data_check 过了就开训。
