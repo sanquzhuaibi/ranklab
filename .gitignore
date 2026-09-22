@@ -1,0 +1,12 @@
+.venv/
+__pycache__/
+*.pyc
+.pytest_cache/
+.DS_Store
+outputs/model.joblib
+outputs/run_metrics.json
+*.egg-info/
+.idea/
+.vscode/
+INTERVIEWER.md
+interviewer/

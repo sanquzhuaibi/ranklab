@@ -1,0 +1,109 @@
+{
+  "primary": "recall@10",
+  "roc_auc": 0.6008021705792144,
+  "gauc": 0.6080060422960725,
+  "gauc_definition": "v2_offline_weighted_by_max_engage",
+  "gauc_skipped_groups": 0,
+  "gauc_eligible_groups": 80,
+  "ndcg": {
+    "@1": 0.6,
+    "@3": 0.7282867981913645,
+    "@5": 0.8182741489149767,
+    "@10": 0.8182741489149767
+  },
+  "recall": {
+    "@1": 0.34375,
+    "@3": 0.825,
+    "@5": 1.0,
+    "@10": 1.0
+  },
+  "recall@10": 1.0,
+  "n_rows": 320,
+  "n_queries": 80,
+  "group_size_min": 4,
+  "group_size_max": 4,
+  "group_size_mean": 4.0,
+  "ctr_deciles": [
+    {
+      "bucket": 1,
+      "rows": 32,
+      "positives": 13,
+      "ctr": 0.40625
+    },
+    {
+      "bucket": 2,
+      "rows": 32,
+      "positives": 11,
+      "ctr": 0.34375
+    },
+    {
+      "bucket": 3,
+      "rows": 32,
+      "positives": 15,
+      "ctr": 0.46875
+    },
+    {
+      "bucket": 4,
+      "rows": 32,
+      "positives": 12,
+      "ctr": 0.375
+    },
+    {
+      "bucket": 5,
+      "rows": 32,
+      "positives": 15,
+      "ctr": 0.46875
+    },
+    {
+      "bucket": 6,
+      "rows": 32,
+      "positives": 9,
+      "ctr": 0.28125
+    },
+    {
+      "bucket": 7,
+      "rows": 32,
+      "positives": 11,
+      "ctr": 0.34375
+    },
+    {
+      "bucket": 8,
+      "rows": 32,
+      "positives": 19,
+      "ctr": 0.59375
+    },
+    {
+      "bucket": 9,
+      "rows": 32,
+      "positives": 19,
+      "ctr": 0.59375
+    },
+    {
+      "bucket": 10,
+      "rows": 32,
+      "positives": 23,
+      "ctr": 0.71875
+    }
+  ],
+  "feature_dim": 14,
+  "feature_names": [
+    "quality",
+    "freshness",
+    "title_len",
+    "author_score",
+    "topic_match",
+    "hist_ctr",
+    "dwell_sec",
+    "share_rate",
+    "tag_n",
+    "tag_unique_n",
+    "like_per_exp",
+    "share_per_exp",
+    "city_match",
+    "json_missing"
+  ],
+  "train_rows": 1918,
+  "label_mode": "binary_ge1",
+  "weight_mode": "group_max_engage",
+  "max_depth": 6
+}

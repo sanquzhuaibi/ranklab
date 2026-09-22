@@ -1,0 +1,27 @@
+{
+  "description": "Warehouse dump contract. Meta columns first, then 16 numeric slots.",
+  "meta": ["query_id", "item_id", "engage_score", "dt"],
+  "features": [
+    "quality",
+    "freshness",
+    "title_len",
+    "author_score",
+    "topic_match",
+    "hist_ctr",
+    "dwell_sec",
+    "share_rate",
+    "tag_n",
+    "tag_unique_n",
+    "catalog_type_n",
+    "bundle_seq_n",
+    "like_per_exp",
+    "share_per_exp",
+    "city_match",
+    "json_missing"
+  ],
+  "notes": {
+    "engage_score": "Raw interaction depth from logs: empty/0/1/3/4/10. Not a binary click.",
+    "dt": "Impression partition YYYYMMDD. Train is a 20-day window; test is bizdate.",
+    "missing": "Numeric missing is encoded as -1 in freshness, bundle_seq_n, like_per_exp, share_per_exp."
+  }
+}
