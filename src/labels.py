@@ -31,6 +31,5 @@ def make_labels(
 ) -> Tuple[List[int], List[float], Dict[str, float]]:
     labels = [binary_label(raw) for raw in engages]
     group_w = group_max_engage(qids, engages)
-    # one row-level copy of the query weight, consumed by export / debug dumps
     row_w = [group_w[qid] for qid in qids]
     return labels, row_w, group_w

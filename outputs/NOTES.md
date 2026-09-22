@@ -1,17 +1,17 @@
 # v2 changelog (2026-09-09)
 
-一次迭代里把三件事一起换掉了，离线指标都在涨，就留作当前主线。
+一次迭代里把训练标签、特征槽位和离线指标一起换掉了。离线数字都在涨，就留作当前主线。
 
 1. **Label / 样本权重**  
-   日志里的 `engage_score` 不是 0/1。v2 按 `>=1` 转成点击，并把 query 权重做成组内 `max(engage_score)`，深互动 session 不再被淹没。
+   日志里的 `engage_score` 不是 0/1。v2 按 `>=1` 转成点击，query 权重用组内 `max(engage_score)`，深互动 session 不再被淹没。
 
 2. **特征**  
-   仓库追加了衍生字段（tag / catalog / 比率 / 缺失标记）。训练按 dump 的 16 槽位对齐，`source`/`dt` 两列丢掉。
+   仓库追加了衍生字段（tag / catalog / 比率 / 缺失标记）。训练按 `feature_schema.json` 的 16 槽位读。跑数前会做 data_check（行数、schema、一组特征均值）。
 
 3. **评估**  
-   线上看板 GAUC 是每个 request 等权平均。v2 离线改成按组内 `max(engage_score)` 加权，深互动 request 更敏感，离线 GAUC 更好看。主指标同时换成 **Recall@10**（列表会截断）。v1 Recall@3 大约 0.71，v2 Recall@10 到了 1.0。线上看板还没切到新口径，先看离线。
+   主指标换成 **Recall@10**（线上列表截断到 10）。v1 看 Recall@3 大约 0.71，这版 Recall@10 到了 1.0。GAUC 按 query 报，深互动 request 权重大一些。看板口径在 `docs/serving_gauc.md`，本轮先看离线。
 
 4. **样本窗口**  
-   train 用 bizdate 前 20 天，test 用 0903。两边行数对得上就开训了。
+   train 用 bizdate 前 20 天，test 用 0903。data_check 过了就开训。
 
 `outputs/baseline_metrics.json` 是这次联调的结果。后面要继续提效果，优先在这套 v2 设定上堆。

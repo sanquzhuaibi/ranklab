@@ -1,19 +1,18 @@
 {
   "primary": "recall@10",
-  "roc_auc": 0.6008021705792144,
-  "gauc": 0.6080060422960725,
-  "gauc_definition": "v2_offline_weighted_by_max_engage",
+  "roc_auc": 0.6709920962604694,
+  "gauc": 0.6432527693857,
   "gauc_skipped_groups": 0,
   "gauc_eligible_groups": 80,
   "ndcg": {
-    "@1": 0.6,
-    "@3": 0.7282867981913645,
-    "@5": 0.8182741489149767,
-    "@10": 0.8182741489149767
+    "@1": 0.6875,
+    "@3": 0.7622174016689239,
+    "@5": 0.8489039008603786,
+    "@10": 0.8489039008603786
   },
   "recall": {
-    "@1": 0.34375,
-    "@3": 0.825,
+    "@1": 0.3875,
+    "@3": 0.83125,
     "@5": 1.0,
     "@10": 1.0
   },
@@ -27,44 +26,44 @@
     {
       "bucket": 1,
       "rows": 32,
-      "positives": 13,
-      "ctr": 0.40625
+      "positives": 10,
+      "ctr": 0.3125
     },
     {
       "bucket": 2,
       "rows": 32,
-      "positives": 11,
-      "ctr": 0.34375
+      "positives": 10,
+      "ctr": 0.3125
     },
     {
       "bucket": 3,
       "rows": 32,
-      "positives": 15,
-      "ctr": 0.46875
+      "positives": 7,
+      "ctr": 0.21875
     },
     {
       "bucket": 4,
+      "rows": 32,
+      "positives": 14,
+      "ctr": 0.4375
+    },
+    {
+      "bucket": 5,
+      "rows": 32,
+      "positives": 13,
+      "ctr": 0.40625
+    },
+    {
+      "bucket": 6,
       "rows": 32,
       "positives": 12,
       "ctr": 0.375
     },
     {
-      "bucket": 5,
-      "rows": 32,
-      "positives": 15,
-      "ctr": 0.46875
-    },
-    {
-      "bucket": 6,
-      "rows": 32,
-      "positives": 9,
-      "ctr": 0.28125
-    },
-    {
       "bucket": 7,
       "rows": 32,
-      "positives": 11,
-      "ctr": 0.34375
+      "positives": 18,
+      "ctr": 0.5625
     },
     {
       "bucket": 8,
@@ -75,17 +74,17 @@
     {
       "bucket": 9,
       "rows": 32,
-      "positives": 19,
-      "ctr": 0.59375
+      "positives": 22,
+      "ctr": 0.6875
     },
     {
       "bucket": 10,
       "rows": 32,
-      "positives": 23,
-      "ctr": 0.71875
+      "positives": 22,
+      "ctr": 0.6875
     }
   ],
-  "feature_dim": 14,
+  "feature_dim": 16,
   "feature_names": [
     "quality",
     "freshness",
@@ -97,6 +96,8 @@
     "share_rate",
     "tag_n",
     "tag_unique_n",
+    "catalog_type_n",
+    "bundle_seq_n",
     "like_per_exp",
     "share_per_exp",
     "city_match",
@@ -105,5 +106,6 @@
   "train_rows": 1918,
   "label_mode": "binary_ge1",
   "weight_mode": "group_max_engage",
-  "max_depth": 6
+  "max_depth": 6,
+  "data_check": "passed"
 }

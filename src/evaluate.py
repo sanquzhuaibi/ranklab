@@ -1,7 +1,4 @@
-"""Offline metrics.
-
-Primary metric is Recall@10. v2 GAUC weights each request by max(engage_score).
-"""
+"""Offline metrics used by this repo's ranking loop."""
 from __future__ import annotations
 
 import math
@@ -38,11 +35,7 @@ def recall_at(ranked_labels: List[int], k: int) -> float:
 
 
 def group_auc(y: np.ndarray, pred: np.ndarray, qids: Sequence[str], engages: Sequence[str] | None = None):
-    """v2 offline GAUC.
-
-    Query AUC weighted by max(engage_score) so deep-interaction requests
-    move the number more. v2 offline definition.
-    """
+    """Per-query ROC-AUC, then a weighted mean across queries."""
     from .labels import parse_engage
 
     buckets = _grouped(qids, y.tolist(), pred.tolist())
@@ -62,19 +55,20 @@ def group_auc(y: np.ndarray, pred: np.ndarray, qids: Sequence[str], engages: Seq
         if qid in eng_by_q:
             weights.append(max(eng_by_q[qid]))
         else:
-            weights.append(float(sum(labels)))
+            weights.append(1.0)
     gauc = float(np.average(vals, weights=weights)) if vals else float("nan")
     return gauc, skipped, len(vals)
 
 
 def ctr_deciles(y: np.ndarray, pred: np.ndarray) -> List[dict]:
-    order = np.sort(pred)
-    n = len(pred)
+    qs = np.quantile(pred, np.linspace(0, 1, 11))
     bins = []
     for b in range(10):
-        lo = order[int(n * b / 10)]
-        hi = order[min(n - 1, int(n * (b + 1) / 10) - 1)]
-        mask = (pred >= lo) & (pred <= hi)
+        lo, hi = float(qs[b]), float(qs[b + 1])
+        if b == 0:
+            mask = (pred >= lo) & (pred <= hi)
+        else:
+            mask = (pred > lo) & (pred <= hi)
         cnt = int(mask.sum())
         pos = int(y[mask].sum()) if cnt else 0
         bins.append({"bucket": b + 1, "rows": cnt, "positives": pos, "ctr": pos / cnt if cnt else 0.0})
@@ -97,11 +91,10 @@ def evaluate(y: Sequence[int], pred: Sequence[float], qids: Sequence[str], engag
         for k in config.NDCG_KS:
             ndcg[f"@{k}"].append(ndcg_at(labels, k))
             recall[f"@{k}"].append(recall_at(labels, k))
-    metrics = {
+    return {
         "primary": config.PRIMARY_METRIC,
         "roc_auc": auc,
         "gauc": gauc,
-        "gauc_definition": "v2_offline_weighted_by_max_engage",
         "gauc_skipped_groups": skipped,
         "gauc_eligible_groups": eligible,
         "ndcg": {k: float(np.mean(v)) for k, v in ndcg.items()},
@@ -115,4 +108,3 @@ def evaluate(y: Sequence[int], pred: Sequence[float], qids: Sequence[str], engag
         "ctr_deciles": ctr_deciles(y_arr, p_arr),
         "feature_dim": None,
     }
-    return metrics
