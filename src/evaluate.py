@@ -32,7 +32,7 @@ def group_auc(
     qids: Sequence[str],
     query_weights: Dict[str, float] | None = None,
 ):
-    """Per-query ROC-AUC, then a mean across queries."""
+    """Per-query ROC-AUC, then aggregated across queries."""
     buckets = _grouped(qids, y.tolist(), pred.tolist())
     vals, weights = [], []
     skipped = 0

@@ -22,6 +22,6 @@
   "notes": {
     "engage_score": "Interaction from the impression log.",
     "dt": "Impression partition. Train is a window before bizdate; test is bizdate.",
-    "missing": "Empty tokens are treated as missing."
+    "missing": "Empty tokens are filled as 0."
   }
 }

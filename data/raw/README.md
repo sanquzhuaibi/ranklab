@@ -1,6 +1,6 @@
 # raw partitions
 
-Daily warehouse dumps.
+Daily warehouse dumps used by the export job.
 
-- `impression/dt=YYYYMMDD.csv` — request-level rows for that day
-- `item_feat/dt=YYYYMMDD.csv` — item snapshot for that day
+- `impression/dt=YYYYMMDD.csv`
+- `item_feat/dt=YYYYMMDD.csv`

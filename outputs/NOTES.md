@@ -12,6 +12,6 @@
    主指标跟线上看板对齐，看 GAUC，辅助 NDCG@1 / NDCG@3。
 
 4. **样本窗口**  
-   train 用 bizdate 前一段时间，test 用 0903。data_check 过了就开训。
+   train 用 bizdate 前一段时间，test 用 0903。
 
 `outputs/baseline_metrics.json` 是这次联调的结果。后面要继续提效果，优先在这套 v2 设定上堆。
