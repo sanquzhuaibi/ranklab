@@ -1,8 +1,4 @@
-"""Fit a ranking scorer.
-
-Query-level weights from the label module are passed through as sample
-weights so high-engagement requests are not drowned out.
-"""
+"""Fit a ranking scorer."""
 from __future__ import annotations
 
 from typing import List, Sequence

@@ -19,6 +19,8 @@ REQUEST_FEATURE_TOL = {
     "topic_match": 0.08,
     "city_match": 0.08,
     "json_missing": 0.05,
+    "hist_ctr": 0.15,
+    "quality": 0.15,
 }
 
 

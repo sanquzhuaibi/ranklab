@@ -1,69 +1,66 @@
 {
   "primary": "recall@10",
-  "roc_auc": 0.6709920962604694,
-  "gauc": 0.6432527693857,
+  "roc_auc": 0.7106287601745901,
+  "gauc": 0.7175226586102719,
   "gauc_skipped_groups": 0,
   "gauc_eligible_groups": 80,
   "ndcg": {
-    "@1": 0.6875,
-    "@3": 0.7622174016689239,
-    "@5": 0.8489039008603786,
-    "@10": 0.8489039008603786
+    "@1": 0.7875,
+    "@3": 0.8110726123677383,
+    "@5": 0.8812548538984061,
+    "@10": 0.8812548538984061
   },
   "recall": {
-    "@1": 0.3875,
-    "@3": 0.83125,
+    "@1": 0.44375,
+    "@3": 0.8625,
     "@5": 1.0,
     "@10": 1.0
   },
   "recall@10": 1.0,
   "n_rows": 320,
   "n_queries": 80,
-  "group_size_min": 4,
-  "group_size_max": 4,
-  "group_size_mean": 4.0,
   "ctr_deciles": [
     {
       "bucket": 1,
       "rows": 32,
-      "positives": 10,
-      "ctr": 0.3125
+      "positives": 6,
+      "ctr": 0.1875
     },
     {
       "bucket": 2,
-      "rows": 32,
-      "positives": 10,
-      "ctr": 0.3125
-    },
-    {
-      "bucket": 3,
       "rows": 32,
       "positives": 7,
       "ctr": 0.21875
     },
     {
+      "bucket": 3,
+      "rows": 32,
+      "positives": 11,
+      "ctr": 0.34375
+    },
+    {
       "bucket": 4,
       "rows": 32,
-      "positives": 14,
-      "ctr": 0.4375
+      "positives": 10,
+      "ctr": 0.3125
     },
     {
       "bucket": 5,
       "rows": 32,
-      "positives": 13,
-      "ctr": 0.40625
+      "positives": 11,
+      "ctr": 0.34375
     },
     {
       "bucket": 6,
       "rows": 32,
-      "positives": 12,
-      "ctr": 0.375
+      "positives": 20,
+      "ctr": 0.625
     },
     {
       "bucket": 7,
       "rows": 32,
-      "positives": 18,
-      "ctr": 0.5625
+      "positives": 19,
+      "ctr": 0.59375
     },
     {
       "bucket": 8,
@@ -74,14 +71,14 @@
     {
       "bucket": 9,
       "rows": 32,
-      "positives": 22,
-      "ctr": 0.6875
+      "positives": 21,
+      "ctr": 0.65625
     },
     {
       "bucket": 10,
       "rows": 32,
-      "positives": 22,
-      "ctr": 0.6875
+      "positives": 23,
+      "ctr": 0.71875
     }
   ],
   "feature_dim": 16,

@@ -40,10 +40,7 @@ def group_auc(
     qids: Sequence[str],
     query_weights: Dict[str, float] | None = None,
 ):
-    """Per-query ROC-AUC, then a mean across queries.
-
-    If query_weights is set, it is the same query importance used in training.
-    """
+    """Per-query ROC-AUC, then a mean across queries."""
     buckets = _grouped(qids, y.tolist(), pred.tolist())
     vals, weights = [], []
     skipped = 0
@@ -90,11 +87,9 @@ def evaluate(
     buckets = _grouped(qids, y, pred)
     ndcg = {f"@{k}": [] for k in config.NDCG_KS}
     recall = {f"@{k}": [] for k in config.NDCG_KS}
-    sizes = []
     for pairs in buckets.values():
         pairs = sorted(pairs, key=lambda x: x[1], reverse=True)
         labels = [p[0] for p in pairs]
-        sizes.append(len(labels))
         for k in config.NDCG_KS:
             ndcg[f"@{k}"].append(ndcg_at(labels, k))
             recall[f"@{k}"].append(recall_at(labels, k))
@@ -109,9 +104,6 @@ def evaluate(
         "recall@10": float(np.mean(recall["@10"])),
         "n_rows": int(len(y_arr)),
         "n_queries": int(len(buckets)),
-        "group_size_min": int(min(sizes)),
-        "group_size_max": int(max(sizes)),
-        "group_size_mean": float(np.mean(sizes)),
         "ctr_deciles": ctr_deciles(y_arr, p_arr),
         "feature_dim": None,
     }

@@ -47,8 +47,6 @@ def run(out_name: str = "run_metrics.json") -> dict:
         "ndcg": metrics["ndcg"],
         "feature_dim": metrics["feature_dim"],
         "n_queries": metrics["n_queries"],
-        "group_size_min": metrics["group_size_min"],
-        "group_size_max": metrics["group_size_max"],
     }, indent=2))
     print(f"wrote {out}")
     return metrics

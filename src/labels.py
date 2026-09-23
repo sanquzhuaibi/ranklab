@@ -1,8 +1,4 @@
-"""Label and group-weight construction.
-
-engage_score is the raw log field. Training uses a binary label and a
-query-level weight so high-engagement sessions are not drowned out.
-"""
+"""Label and query-weight construction from the dump's engage_score field."""
 from __future__ import annotations
 
 from collections import defaultdict
