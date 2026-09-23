@@ -9,7 +9,7 @@
    仓库追加了衍生字段（tag / catalog / 比率 / 缺失标记）。训练按 `feature_schema.json` 的 16 槽位读。跑数前会做 data_check。
 
 3. **评估**  
-   主指标换成 **Recall@10**（线上列表截断到 10）。v1 看 Recall@3 大约 0.71，这版 Recall@10 到了 1.0。GAUC 按 query 报。
+   主指标跟着线上列表截断走。GAUC 按 query 报，和训练同一套权重。
 
 4. **样本窗口**  
    train 用 bizdate 前 20 天，test 用 0903。data_check 过了就开训。
