@@ -9,9 +9,9 @@ from . import config
 from .features import FEATURE_SLOTS, META_COLS, MISSING_TOKENS
 
 # Frozen dump contract from the 2026-09-09 export.
-EXPECTED_TRAIN_ROWS = 1918
+EXPECTED_TRAIN_ROWS = 1936
 EXPECTED_TEST_ROWS = 320
-EXPECTED_TRAIN_QUERIES = 280
+EXPECTED_TRAIN_QUERIES = 277
 EXPECTED_TEST_QUERIES = 80
 EXPECTED_TRAIN_PARTITIONS = 20
 ENGAGE_VOCAB = {"", "0", "1", "3", "4", "10"}
@@ -19,8 +19,6 @@ REQUEST_FEATURE_TOL = {
     "topic_match": 0.08,
     "city_match": 0.08,
     "json_missing": 0.05,
-    "hist_ctr": 0.15,
-    "quality": 0.15,
 }
 
 

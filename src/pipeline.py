@@ -25,14 +25,12 @@ def run(out_name: str = "run_metrics.json") -> dict:
     q_te, _, e_te, x_te = build_matrix(config.TEST_CSV)
     y_tr, w_tr, _ = make_labels(q_tr, e_tr)
     y_te, _, gw_te = make_labels(q_te, e_te)
-    model = train_ranker(x_tr, y_tr, q_tr, w_tr)
+    model = train_ranker(x_tr, y_tr, w_tr)
     pred = predict_scores(model, x_te)
     metrics = evaluate(y_te, pred, q_te, gw_te)
     metrics["feature_dim"] = len(used_feature_names())
     metrics["feature_names"] = used_feature_names()
     metrics["train_rows"] = len(y_tr)
-    metrics["label_mode"] = config.LABEL_MODE
-    metrics["weight_mode"] = config.WEIGHT_MODE
     metrics["max_depth"] = config.MAX_DEPTH
     metrics["data_check"] = "passed"
     joblib.dump(model, config.OUT_DIR / "model.joblib")
@@ -43,7 +41,6 @@ def run(out_name: str = "run_metrics.json") -> dict:
         "primary": metrics["primary"],
         "roc_auc": metrics["roc_auc"],
         "gauc": metrics["gauc"],
-        "recall@10": metrics["recall@10"],
         "ndcg": metrics["ndcg"],
         "feature_dim": metrics["feature_dim"],
         "n_queries": metrics["n_queries"],

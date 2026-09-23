@@ -20,8 +20,8 @@
     "json_missing"
   ],
   "notes": {
-    "engage_score": "Raw interaction depth from logs: empty/0/1/3/4/10. Not a binary click.",
-    "dt": "Impression partition YYYYMMDD. Train is a 20-day window; test is bizdate.",
-    "missing": "Empty tokens are treated as missing. Some numeric fields may also use -1."
+    "engage_score": "Interaction from the impression log.",
+    "dt": "Impression partition. Train is a window before bizdate; test is bizdate.",
+    "missing": "Empty tokens are treated as missing."
   }
 }

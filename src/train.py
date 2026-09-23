@@ -9,7 +9,7 @@ from sklearn.ensemble import HistGradientBoostingClassifier
 from . import config
 
 
-def train_ranker(matrix: List[List[float]], y: Sequence[int], qids: Sequence[str], row_w: Sequence[float]):
+def train_ranker(matrix: List[List[float]], y: Sequence[int], row_w: Sequence[float]):
     x = np.asarray(matrix, dtype=float)
     labels = np.asarray(y, dtype=int)
     sample_w = np.asarray(row_w, dtype=float)

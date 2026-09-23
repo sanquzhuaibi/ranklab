@@ -1,5 +1,5 @@
--- Train dump for bizdate = 20260903
--- Impression window: 20 days before bizdate.
+-- Train dump for bizdate = 2026-09-03
+-- Impression window: the days before bizdate.
 
 SELECT
     i.query_id,

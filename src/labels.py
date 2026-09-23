@@ -15,7 +15,7 @@ def binary_label(raw: str) -> int:
     return 1 if parse_engage(raw) >= 1 else 0
 
 
-def group_max_engage(qids: Sequence[str], engages: Sequence[str]) -> Dict[str, float]:
+def query_weight(qids: Sequence[str], engages: Sequence[str]) -> Dict[str, float]:
     weights: Dict[str, float] = defaultdict(float)
     for qid, raw in zip(qids, engages):
         weights[qid] = max(weights[qid], parse_engage(raw))
@@ -26,6 +26,6 @@ def make_labels(
     qids: Sequence[str], engages: Sequence[str]
 ) -> Tuple[List[int], List[float], Dict[str, float]]:
     labels = [binary_label(raw) for raw in engages]
-    group_w = group_max_engage(qids, engages)
+    group_w = query_weight(qids, engages)
     row_w = [group_w[qid] for qid in qids]
     return labels, row_w, group_w

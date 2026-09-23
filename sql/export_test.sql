@@ -1,4 +1,4 @@
--- Test dump for bizdate = 20260903
+-- Test dump for bizdate = 2026-09-03
 -- Impression window: bizdate.
 
 SELECT

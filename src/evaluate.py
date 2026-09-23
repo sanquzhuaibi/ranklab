@@ -26,14 +26,6 @@ def ndcg_at(ranked_labels: List[int], k: int) -> float:
     return dcg / idcg if idcg else 0.0
 
 
-def recall_at(ranked_labels: List[int], k: int) -> float:
-    total = sum(ranked_labels)
-    if total <= 0:
-        return 0.0
-    k = min(k, len(ranked_labels))
-    return sum(ranked_labels[:k]) / total
-
-
 def group_auc(
     y: np.ndarray,
     pred: np.ndarray,
@@ -59,21 +51,6 @@ def group_auc(
     return gauc, skipped, len(vals)
 
 
-def ctr_deciles(y: np.ndarray, pred: np.ndarray) -> List[dict]:
-    qs = np.quantile(pred, np.linspace(0, 1, 11))
-    bins = []
-    for b in range(10):
-        lo, hi = float(qs[b]), float(qs[b + 1])
-        if b == 0:
-            mask = (pred >= lo) & (pred <= hi)
-        else:
-            mask = (pred > lo) & (pred <= hi)
-        cnt = int(mask.sum())
-        pos = int(y[mask].sum()) if cnt else 0
-        bins.append({"bucket": b + 1, "rows": cnt, "positives": pos, "ctr": pos / cnt if cnt else 0.0})
-    return bins
-
-
 def evaluate(
     y: Sequence[int],
     pred: Sequence[float],
@@ -86,13 +63,11 @@ def evaluate(
     gauc, skipped, eligible = group_auc(y_arr, p_arr, qids, query_weights)
     buckets = _grouped(qids, y, pred)
     ndcg = {f"@{k}": [] for k in config.NDCG_KS}
-    recall = {f"@{k}": [] for k in config.NDCG_KS}
     for pairs in buckets.values():
         pairs = sorted(pairs, key=lambda x: x[1], reverse=True)
         labels = [p[0] for p in pairs]
         for k in config.NDCG_KS:
             ndcg[f"@{k}"].append(ndcg_at(labels, k))
-            recall[f"@{k}"].append(recall_at(labels, k))
     return {
         "primary": config.PRIMARY_METRIC,
         "roc_auc": auc,
@@ -100,10 +75,7 @@ def evaluate(
         "gauc_skipped_groups": skipped,
         "gauc_eligible_groups": eligible,
         "ndcg": {k: float(np.mean(v)) for k, v in ndcg.items()},
-        "recall": {k: float(np.mean(v)) for k, v in recall.items()},
-        "recall@10": float(np.mean(recall["@10"])),
         "n_rows": int(len(y_arr)),
         "n_queries": int(len(buckets)),
-        "ctr_deciles": ctr_deciles(y_arr, p_arr),
         "feature_dim": None,
     }

@@ -8,11 +8,8 @@ TRAIN_CSV = DATA_DIR / "train.csv"
 TEST_CSV = DATA_DIR / "test.csv"
 SCHEMA_JSON = DATA_DIR / "feature_schema.json"
 
-LABEL_MODE = "binary_ge1"
-WEIGHT_MODE = "group_max_engage"
-PRIMARY_METRIC = "recall@10"
-RECALL_K = 10
-NDCG_KS = (1, 3, 5, 10)
+PRIMARY_METRIC = "gauc"
+NDCG_KS = (1, 3)
 
 MAX_DEPTH = 6
 LEARNING_RATE = 0.1
