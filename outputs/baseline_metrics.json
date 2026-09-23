@@ -1,12 +1,12 @@
 {
   "primary": "gauc",
-  "roc_auc": 0.8717843137254901,
-  "gauc": 0.9476923076923077,
+  "roc_auc": 0.8376018170426065,
+  "gauc": 0.8565018315018315,
   "gauc_skipped_groups": 0,
   "gauc_eligible_groups": 80,
   "ndcg": {
-    "@1": 0.9625,
-    "@3": 0.9680160604727348
+    "@1": 0.8875,
+    "@3": 0.9129986097944967
   },
   "n_rows": 320,
   "n_queries": 80,
@@ -29,7 +29,7 @@
     "city_match",
     "json_missing"
   ],
-  "train_rows": 1936,
+  "train_rows": 1944,
   "max_depth": 6,
   "data_check": "passed"
 }
