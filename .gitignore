@@ -9,6 +9,3 @@ outputs/data_check.json
 *.egg-info/
 .idea/
 .vscode/
-INTERVIEWER.md
-评估.md
-interviewer/
