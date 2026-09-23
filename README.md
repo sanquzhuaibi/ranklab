@@ -24,7 +24,7 @@ python -m src.pipeline
 
 ## 你的任务
 
-在现有 pipeline 上 **提升排序效果**。可以用 AI，不限制模型或库。
+在现有 pipeline 上 **提升排序效果**。可以用 AI。不要换模型，可以调参。
 
 请提交：
 
