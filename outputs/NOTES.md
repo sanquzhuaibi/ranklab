@@ -2,11 +2,11 @@
 
 一次迭代里把训练标签、特征槽位和离线指标一起换掉了。离线数字都在涨，就留作当前主线。
 
-1. **Label / 样本权重**  
-   训练标签从 `engage_score` 切一档做成点击。query 权重走仓库导出文件。
+1. **Label**  
+   训练按点击做 0/1。
 
 2. **特征**  
-   仓库追加了衍生字段（tag / catalog / 比率 / 缺失标记）。训练按 `feature_schema.json` 的 16 槽位读。跑数前会做 data_check。
+   仓库追加了衍生字段（tag / catalog / 比率）。训练按 `feature_schema.json` 的 16 槽位读。跑数前会做 data_check。
 
 3. **评估**  
    主指标跟线上看板对齐，看 GAUC，辅助 NDCG@1 / NDCG@3。
